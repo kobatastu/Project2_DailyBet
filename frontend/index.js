@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 
 
 import './index.css';
-import App from './App';
+import App from './src/App';
 import * as serviceWorker from './serviceWorker';
 
 //ステートの値を作成

@@ -1,21 +1,17 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const helmet = require("helmet");
-const morgan = require("morgan");
-const mysql = require("mysql");
-const path = require("path");
-const fs = require("fs");
-const http = require("http");
-const app = express();
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import helmet from "helmet";
+import morgan from "morgan";
+import mysql from "mysql";
+import path from "path";
+import fs from "fs";
+import http from "http";
 require("date-utils");
-//データベース準備
-const mysql_setting = {
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "******",
-};
+
+import { mysql_setting } from "./mysqlConfig";
+
+const app = express();
 
 app.use(helmet());
 app.use(bodyParser.json());
@@ -60,7 +56,7 @@ app.get("/user", (req, res) => {
     fields
   ) {
     if (results[0] == null) {
-      data = {
+      const data = {
         name: name,
         coin: 100,
         nicname: "No name",
@@ -220,7 +216,7 @@ app.post("/upload/name/", (req, res) => {
   const nicname = req.body.nicname;
   const name = req.body.name;
 
-  data = { nicname: nicname };
+  const data = { nicname: nicname };
 
   const connection = mysql.createConnection(mysql_setting);
   connection.connect();
@@ -233,12 +229,10 @@ app.post("/upload/name/", (req, res) => {
   );
 });
 
-app.post("/upload/file/", (req, res) => {
+app.post("/upload/file/", (req: any, res) => {
   const name = req.body.name;
-  const now = new Date();
+  const now: any = new Date();
   const time = now.toFormat("YYYYMMDDHH24MISS");
-
-  console.log(req.files);
 
   var connection = mysql.createConnection(mysql_setting);
   connection.connect();
@@ -276,7 +270,13 @@ app.post("/", (req, res) => {
 
   const userid = req.body.userid;
 
-  data = { userid: userid, betid: id, which: name, betvalue: bet, kanri: 0 };
+  const data = {
+    userid: userid,
+    betid: id,
+    which: name,
+    betvalue: bet,
+    kanri: 0,
+  };
 
   const connection = mysql.createConnection(mysql_setting);
   connection.connect();
@@ -296,7 +296,7 @@ app.post("/", (req, res) => {
             "UPDATE User_table SET coin = coin - ? WHERE name = ?",
             [Number(bet), userid],
             function (error3, results3, fields3) {
-              p = { Atotal: newA, Btotal: Btotal };
+              const p = { Atotal: newA, Btotal: Btotal };
               res.send(p);
             }
           );
@@ -313,7 +313,7 @@ app.post("/", (req, res) => {
             "UPDATE User_table SET coin = coin - ? WHERE name = ?",
             [Number(bet), userid],
             function (error3, results3, fields3) {
-              p = { Atotal: Atotal, Btotal: newB };
+              const p = { Atotal: Atotal, Btotal: newB };
               res.send(p);
             }
           );
@@ -327,7 +327,7 @@ app.post("/buycoin", (req, res) => {
   const coin = req.body.coin;
   const name = req.body.name;
 
-  data = { coin: coin };
+  const data = { coin: coin };
 
   const connection = mysql.createConnection(mysql_setting);
   connection.connect();
@@ -355,7 +355,9 @@ var server = http.createServer(function (req, res) {
 
 var io = require("socket.io").listen(server);
 
-server.listen(8000);
+server.listen(8000, () => {
+  console.log("listening on port 8000");
+});
 
 var connection = mysql.createConnection(mysql_setting);
 connection.connect();
@@ -364,11 +366,8 @@ connection.connect();
 io.on("connection", function (socket) {
   // クライアントからサーバーへ メッセージ送信ハンドラ（自分を含む全員宛に送る）
   socket.on("SEND_MESSAGE", function (value) {
-    console.log("ここは通る？");
-    console.log(value);
-
     //データベースに送るためのデータを作成
-    var dt = new Date();
+    var dt: any = new Date();
     dt.setHours(dt.getHours());
     var date = dt.toFormat("YYYY-MM-DD HH24:MI:SS");
     var data = { userid: value.userid, contents: value.contents, time: date };

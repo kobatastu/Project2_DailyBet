@@ -1,10 +1,10 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import mysql from "mysql";
 import { mysql_setting } from "./../mysqlConfig";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
+router.get("/", (req: Request, res: Response) => {
   const connection = mysql.createConnection(mysql_setting);
   connection.connect();
 

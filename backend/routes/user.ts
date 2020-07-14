@@ -1,15 +1,14 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import mysql from "mysql";
 import { mysql_setting } from "./../mysqlConfig";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
+router.get("/", (req: Request, res: Response) => {
   const name = req.query.email;
 
   const connection = mysql.createConnection(mysql_setting);
   connection.connect();
-
   connection.query("SELECT * from User_table WHERE name=?", name, function (
     error,
     results,
@@ -110,7 +109,6 @@ router.get("/", (req, res) => {
               );
             }
           );
-
           // connection.query('UPDATE Coin_table SET kanri = 1 WHERE status != X and id = ?',results3[i].id,
           // function(error4,results4,fields4){})
         }

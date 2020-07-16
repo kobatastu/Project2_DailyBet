@@ -12,10 +12,10 @@ import Button from "@material-ui/core/Button";
 
 import Odds from "./Odds";
 import Alert from "./Alert";
-import { subR } from "../../index";
+import { subR } from "../index";
 
 class Bets extends Component {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
 
     this.state = {

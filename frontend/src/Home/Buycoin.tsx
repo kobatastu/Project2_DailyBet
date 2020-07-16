@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Divider from "@material-ui/core/Divider";
 
-import { addR } from "../../index";
+import { addR } from "../index";
 
 class Buycoin extends Component {
   constructor(props) {

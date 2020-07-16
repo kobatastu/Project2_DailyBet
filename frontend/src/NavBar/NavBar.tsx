@@ -8,10 +8,10 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
 import firebase from "../firebaseConfig";
-import { addR } from "../../index";
-import { addE } from "../../index";
-import { addN } from "../../index";
-import { addP } from "../../index";
+import { addR } from "../index";
+import { addE } from "../index";
+import { addN } from "../index";
+import { addP } from "../index";
 
 class NavBar extends Component {
   constructor(props) {

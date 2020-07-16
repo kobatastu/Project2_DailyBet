@@ -19,7 +19,5 @@ class App extends Component {
     );
   }
 }
-//ストアのコネクト
-App = connect()(App);
 
-export default App;
+export default connect()(App);

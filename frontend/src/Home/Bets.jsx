@@ -15,7 +15,7 @@ import Alert from "./Alert";
 import { subR } from "../index";
 
 class Bets extends Component {
-  constructor(props: any) {
+  constructor(props) {
     super(props);
 
     this.state = {
